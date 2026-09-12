@@ -9,9 +9,23 @@ def mostrar_cursos():
         print(f"Código: {curso['codigo']}")
         print(f"Curso: {curso['nombre']}")
         print(f"Créditos: {curso['creditos']}")
-        print(f"Prerrequisito: {curso['prerrequisito']}")
-        print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
+       #  print(f"Prerrequisito: {curso['prerrequisito']}")
+       #  print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
         print("-" * 40)
 
 
 
+def buscar_curso_code(codigo):
+
+    for curso in cursos:
+        if curso["codigo"] == codigo:
+            print("\nCurso encontrado")
+            print(f"Código: {curso['codigo']}")
+            print(f"Curso: {curso['nombre']}")
+            print(f"Créditos: {curso['creditos']}")           
+            print(f"Prerrequisito: {curso['prerrequisito']}")
+            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
+            return
+        
+
+    print("Curso no existe")
