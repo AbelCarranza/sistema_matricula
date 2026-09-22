@@ -1,6 +1,7 @@
 from data.cursos_data import CREDITOS_MAXIMOS
-from modulos.consulta import mostrar_cursos, buscar_curso_code
+from modulos.consulta import mostrar_cursos, buscar_curso_code, seleccionar_curso
 
+seleccionados = []
 
 def mostrar_menu():
     print("╔════════════════════════════════════════════════════╗")
@@ -37,7 +38,8 @@ def main():
         elif opcion == "3":
             ver_informacion_curso()
         elif opcion == "4":
-            seleccionar_curso()
+            codigo = input("Ingrese el código del curso: ").strip().upper()
+            seleccionar_curso(codigo, seleccionados)
         elif opcion == "5":
             ver_seleccion()
         elif opcion == "6":
