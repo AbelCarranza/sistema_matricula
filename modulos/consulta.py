@@ -28,6 +28,22 @@ def buscar_curso_code(codigo):
 
     print("Curso no existe")
 
+
+def seleccionar_curso(codigo, seleccionados):
+
+    for curso in cursos:
+
+        if curso["codigo"] == codigo:
+
+            if curso in seleccionados:
+                print("El curso ya está seleccionado")
+                return
+
+            seleccionados.append(curso)
+            print("Curso seleccionado correctamente")
+            return
+
+    print("El curso no existe")
 def ver_curso_pre():
     for curso in cursos:
         if curso["prerrequisito"] != "Ninguno":
