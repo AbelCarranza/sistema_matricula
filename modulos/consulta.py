@@ -9,8 +9,6 @@ def mostrar_cursos():
         print(f"Código: {curso['codigo']}")
         print(f"Curso: {curso['nombre']}")
         print(f"Créditos: {curso['creditos']}")
-       #  print(f"Prerrequisito: {curso['prerrequisito']}")
-       #  print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
         print("-" * 40)
 
 
@@ -46,3 +44,12 @@ def seleccionar_curso(codigo, seleccionados):
             return
 
     print("El curso no existe")
+def ver_curso_pre():
+    for curso in cursos:
+        if curso["prerrequisito"] != "Ninguno":
+            print("\nCursos con prerrequisitos")
+            print(f"Código: {curso['codigo']}")
+            print(f"Curso: {curso['nombre']}")
+            print(f"Créditos: {curso['creditos']}")           
+            print(f"Prerrequisito: {curso['prerrequisito']}")
+            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
