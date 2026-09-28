@@ -1,6 +1,6 @@
 # Opciones 1, 2 y 3 (Ver, buscar y ver detalles de cursos)
 
-from data.cursos_data import cursos
+from data.cursos_data import cursos,cursos_llevados
 
 def mostrar_cursos():
     print("\n========== CURSOS DISPONIBLES ==========\n")
@@ -11,6 +11,15 @@ def mostrar_cursos():
         print(f"Créditos: {curso['creditos']}")
         print("-" * 40)
 
+def mostrar_cursos_llevados():
+    print("\n========== CURSOS YA LLEVADOS ==========\n")
+
+    for curso in cursos:
+        if curso["codigo"] in cursos_llevados:
+            print(f"Código: {curso['codigo']}")
+            print(f"Curso: {curso['nombre']}")
+            print(f"Créditos: {curso['creditos']}")
+            print("-" * 40)
 
 
 def buscar_curso_code(codigo):
@@ -28,6 +37,17 @@ def buscar_curso_code(codigo):
 
     print("Curso no existe")
 
+def ver_curso_pre():
+    for curso in cursos:
+        if curso["prerrequisito"] != "Ninguno":
+            print("\nCursos con prerrequisitos")
+            print(f"Código: {curso['codigo']}")
+            print(f"Curso: {curso['nombre']}")
+            print(f"Créditos: {curso['creditos']}")           
+            print(f"Prerrequisito: {curso['prerrequisito']}")
+            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
+
+
 
 def seleccionar_curso(codigo, seleccionados):
 
@@ -44,12 +64,5 @@ def seleccionar_curso(codigo, seleccionados):
             return
 
     print("El curso no existe")
-def ver_curso_pre():
-    for curso in cursos:
-        if curso["prerrequisito"] != "Ninguno":
-            print("\nCursos con prerrequisitos")
-            print(f"Código: {curso['codigo']}")
-            print(f"Curso: {curso['nombre']}")
-            print(f"Créditos: {curso['creditos']}")           
-            print(f"Prerrequisito: {curso['prerrequisito']}")
-            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
+
+

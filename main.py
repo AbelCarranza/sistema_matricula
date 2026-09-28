@@ -1,5 +1,6 @@
 from data.cursos_data import CREDITOS_MAXIMOS
-from modulos.consulta import mostrar_cursos, buscar_curso_code, seleccionar_curso, ver_curso_pre
+from modulos.consulta import mostrar_cursos, buscar_curso_code, seleccionar_curso, ver_curso_pre,mostrar_cursos_llevados
+from modulos.horarios import generar_horario
 
 seleccionados = []
 
@@ -15,10 +16,11 @@ def mostrar_menu():
     print("║  3. Ver cursos con prerrequisitos                  ║")
     print("║  4. Seleccionar cursos                             ║")
     print("║  5. Ver mi selección                               ║")
-    print("║  6. Generar horario                                ║")
+    print("║  6. Generar horario automáticamente                ║")
     print("║  7. Optimizar matrícula                            ║")
     print("║  8. Confirmar matrícula                            ║")
     print("║  9. Ver resumen de matrícula                       ║")
+    print("║  10. Ver cursos ya llevados                        ║")
     print("║                                                    ║")
     print("║  0. Salir                                          ║")
     print("╚════════════════════════════════════════════════════╝")
@@ -50,6 +52,8 @@ def main():
             confirmar_matricula()
         elif opcion == "9":
             ver_resumen()
+        elif opcion == "10":
+            mostrar_cursos_llevados()
         elif opcion == "0":
             print("Saliendo del sistema. ¡Hasta luego!")
             break

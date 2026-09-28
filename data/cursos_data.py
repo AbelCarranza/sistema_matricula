@@ -1,5 +1,10 @@
 CREDITOS_MAXIMOS = 20
 
+cursos_llevados = [
+    "PROG101",
+    "MAT101"
+]
+
 cursos = [
     {
         "codigo": "ALG101",
@@ -14,7 +19,7 @@ cursos = [
         "codigo": "BD101",
         "nombre": "Base de Datos",
         "creditos": 3,
-        "prerrequisito": "Programación I",
+        "prerrequisito": "PROG101",
         "dia": "Martes",
         "hora_inicio": 10.00,
         "hora_fin": 12.00
@@ -41,7 +46,7 @@ cursos = [
         "codigo": "SO101",
         "nombre": "Sistemas Operativos",
         "creditos": 3,
-        "prerrequisito": "Programación I",
+        "prerrequisito": "PROG101",
         "dia": "Jueves",
         "hora_inicio": 8.00,
         "hora_fin": 10.00
