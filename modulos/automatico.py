@@ -22,8 +22,10 @@ def obtener_cursos_disponibles():
         if curso["codigo"] in cursos_llevados:
             continue
 
-        if verificar_prerrequisito(curso):
-            disponibles.append(curso)
+        if not verificar_prerrequisito(curso):
+            continue
+
+        disponibles.append(curso)
 
     return disponibles
 
@@ -40,7 +42,7 @@ def hay_cruce(curso1, curso2):
     return False
 
 
-def generar_horario():
+def generar_horario(cursos_llevados):
 
     cursos_disponibles = obtener_cursos_disponibles()
 
@@ -51,7 +53,6 @@ def generar_horario():
 
         if creditos + curso["creditos"] > CREDITOS_MAXIMOS:
             continue
-
 
         hay_conflicto = False
 
@@ -82,4 +83,4 @@ def generar_horario():
             f"{curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}"
         )
 
-    print(f"\nCréditos matriculados: {creditos}")
+    print(f"\nTotal de créditos: {creditos}")

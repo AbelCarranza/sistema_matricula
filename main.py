@@ -1,6 +1,8 @@
 from data.cursos_data import CREDITOS_MAXIMOS
 from modulos.consulta import mostrar_cursos, buscar_curso_code, seleccionar_curso, ver_curso_pre,mostrar_cursos_llevados
-from modulos.horarios import generar_horario
+from modulos.automatico import generar_horario
+from modulos.resumen import ver_resumen
+
 
 seleccionados = []
 
@@ -51,7 +53,7 @@ def main():
         elif opcion == "8":
             confirmar_matricula()
         elif opcion == "9":
-            ver_resumen()
+            ver_resumen(seleccionados)
         elif opcion == "10":
             mostrar_cursos_llevados()
         elif opcion == "0":

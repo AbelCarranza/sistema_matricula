@@ -1,1 +1,1 @@
-# Opciones 8 y 9 (Confirmar matricula y ver resumen final)
+# Opciones 8 
