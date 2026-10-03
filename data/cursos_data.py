@@ -86,5 +86,51 @@ cursos = [
         "dia": "Viernes",
         "hora_inicio": 8.00,
         "hora_fin": 10.00
+    },
+
+    {
+        "codigo": "EST101",
+        "nombre": "Estadística",
+        "creditos": 3,
+        "prerrequisito": "Ninguno",
+        "dia": "Lunes",
+        "hora_inicio": 9.00,
+        "hora_fin": 11.00
+    },
+    {
+        "codigo": "FIS101",
+        "nombre": "Física I",
+        "creditos": 4,
+        "prerrequisito": "MAT101",
+        "dia": "Viernes",
+        "hora_inicio": 10.00,
+        "hora_fin": 12.00
+    },
+    {
+        "codigo": "CAL201",
+        "nombre": "Cálculo II",
+        "creditos": 4,
+        "prerrequisito": "MAT101",
+        "dia": "Jueves",
+        "hora_inicio": 8.00,
+        "hora_fin": 10.00
+    },
+    {
+        "codigo": "ING101",
+        "nombre": "Inglés Técnico",
+        "creditos": 2,
+        "prerrequisito": "Ninguno",
+        "dia": "Miércoles",
+        "hora_inicio": 14.00,
+        "hora_fin": 16.00
+    },
+    {
+        "codigo": "ETI101",
+        "nombre": "Ética Profesional",
+        "creditos": 2,
+        "prerrequisito": "Ninguno",
+        "dia": "Martes",
+        "hora_inicio": 10.00,
+        "hora_fin": 12.00
     }
 ]
