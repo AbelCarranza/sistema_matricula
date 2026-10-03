@@ -1,6 +1,6 @@
 # Seleccionar, retirar y ver cursos de la selección
 
-from data.cursos_data import CREDITOS_MAXIMOS
+from data.cursos_data import cursos_llevados, CREDITOS_MAXIMOS
 from modulos.matricula import esta_confirmada
 from modulos.utilidades import clave_horario, formato_horario, imprimir_titulo
 from modulos.validaciones import obtener_curso, total_creditos, validar_curso
@@ -19,6 +19,10 @@ def seleccionar_curso(codigo, seleccionados):
     if curso is None:
         print("El curso no existe")
         return False
+
+    if codigo in cursos_llevados:
+        print(f"El curso {codigo} ya fue llevado anteriormente")
+        return False 
 
     if any(sel["codigo"] == codigo for sel in seleccionados):
         print("El curso ya está seleccionado")
