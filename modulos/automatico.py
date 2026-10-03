@@ -1,49 +1,15 @@
-# Opcion 6 (Generar y visualizar el horario semana)
-from data.cursos_data import cursos, cursos_llevados, CREDITOS_MAXIMOS
+# Generar horario automáticamente
+#
+# Propuesta rápida con un algoritmo voraz: recorre la oferta disponible en orden
+# y se queda con cada curso que aún cabe (créditos) y no se cruza con los ya elegidos.
+# No garantiza la mejor combinación; para eso está el optimizador (backtracking).
+
+from data.cursos_data import CREDITOS_MAXIMOS
+from modulos.utilidades import clave_horario, formato_horario, imprimir_titulo
+from modulos.validaciones import hay_cruce, obtener_cursos_disponibles
 
 
-def verificar_prerrequisito(curso):
-    prerrequisito = curso["prerrequisito"]
-
-    if prerrequisito == "Ninguno":
-        return True
-
-    if prerrequisito in cursos_llevados:
-        return True
-
-    return False
-
-
-def obtener_cursos_disponibles():
-    disponibles = []
-
-    for curso in cursos:
-
-        if curso["codigo"] in cursos_llevados:
-            continue
-
-        if not verificar_prerrequisito(curso):
-            continue
-
-        disponibles.append(curso)
-
-    return disponibles
-
-
-def hay_cruce(curso1, curso2):
-
-    if curso1["dia"] != curso2["dia"]:
-        return False
-
-    if curso1["hora_inicio"] < curso2["hora_fin"] and \
-       curso2["hora_inicio"] < curso1["hora_fin"]:
-        return True
-
-    return False
-
-
-def generar_horario(cursos_llevados):
-
+def generar_horario():
     cursos_disponibles = obtener_cursos_disponibles()
 
     matricula = []
@@ -54,33 +20,20 @@ def generar_horario(cursos_llevados):
         if creditos + curso["creditos"] > CREDITOS_MAXIMOS:
             continue
 
-        hay_conflicto = False
-
-        for curso_matriculado in matricula:
-
-            if hay_cruce(curso, curso_matriculado):
-                hay_conflicto = True
-                break
-
-        if hay_conflicto:
+        if any(hay_cruce(curso, matriculado) for matriculado in matricula):
             continue
 
         matricula.append(curso)
         creditos += curso["creditos"]
 
-    print("\n╔════════════════════════════════════════════╗")
-    print("║       HORARIO AUTOMÁTICO GENERADO         ║")
-    print("╚════════════════════════════════════════════╝")
+    imprimir_titulo("HORARIO AUTOMÁTICO GENERADO")
 
-    if len(matricula) == 0:
+    if not matricula:
         print("No se pudo generar una matrícula.")
-        return
+        return matricula
 
-    for curso in matricula:
-        print(
-            f"{curso['codigo']} - {curso['nombre']} | "
-            f"{curso['dia']} | "
-            f"{curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}"
-        )
+    for curso in sorted(matricula, key=clave_horario):
+        print(f"{curso['codigo']} - {curso['nombre']} | {formato_horario(curso)}")
 
-    print(f"\nTotal de créditos: {creditos}")
+    print(f"\nTotal de créditos: {creditos} / {CREDITOS_MAXIMOS}")
+    return matricula

@@ -1,68 +1,79 @@
-# Opciones 1, 2 y 3 (Ver, buscar y ver detalles de cursos)
+# Ver, buscar y consultar cursos
 
-from data.cursos_data import cursos,cursos_llevados
+import unicodedata
+
+from data.cursos_data import cursos, cursos_llevados
+from modulos.utilidades import imprimir_curso, imprimir_titulo
+from modulos.validaciones import obtener_curso
+
+
+def _normalizar(texto):
+    """Minúsculas y sin tildes, para que 'matematica' encuentre 'Matemática'."""
+    texto = unicodedata.normalize("NFD", texto.lower())
+    return "".join(ch for ch in texto if unicodedata.category(ch) != "Mn")
+
 
 def mostrar_cursos():
-    print("\n========== CURSOS DISPONIBLES ==========\n")
+    imprimir_titulo("CURSOS DISPONIBLES")
+    print()
 
     for curso in cursos:
+        imprimir_curso(curso)
+        if curso["codigo"] in cursos_llevados:
+            print("Estado: Ya llevado")
+        print("-" * 40)
+
+
+def mostrar_cursos_llevados():
+    imprimir_titulo("CURSOS YA LLEVADOS")
+    print()
+
+    if not cursos_llevados:
+        print("Aún no tiene cursos aprobados registrados.")
+        return
+
+    for codigo in cursos_llevados:
+        curso = obtener_curso(codigo)
+        if curso is None:
+            continue
         print(f"Código: {curso['codigo']}")
         print(f"Curso: {curso['nombre']}")
         print(f"Créditos: {curso['creditos']}")
         print("-" * 40)
 
-def mostrar_cursos_llevados():
-    print("\n========== CURSOS YA LLEVADOS ==========\n")
 
-    for curso in cursos:
-        if curso["codigo"] in cursos_llevados:
-            print(f"Código: {curso['codigo']}")
-            print(f"Curso: {curso['nombre']}")
-            print(f"Créditos: {curso['creditos']}")
-            print("-" * 40)
+def buscar_curso(termino):
+    """Busca por código o por parte del nombre. Devuelve la lista de cursos encontrados."""
+    buscado = _normalizar(termino.strip())
 
+    if not buscado:
+        print("Debe ingresar un código o un nombre de curso.")
+        return []
 
-def buscar_curso_code(codigo):
+    encontrados = [
+        curso for curso in cursos
+        if buscado in _normalizar(curso["codigo"]) or buscado in _normalizar(curso["nombre"])
+    ]
 
-    for curso in cursos:
-        if curso["codigo"] == codigo:
-            print("\nCurso encontrado")
-            print(f"Código: {curso['codigo']}")
-            print(f"Curso: {curso['nombre']}")
-            print(f"Créditos: {curso['creditos']}")           
-            print(f"Prerrequisito: {curso['prerrequisito']}")
-            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
-            return
-        
+    if not encontrados:
+        print("Curso no existe")
+        return []
 
-    print("Curso no existe")
+    print(f"\nCursos encontrados: {len(encontrados)}")
+    for curso in encontrados:
+        print()
+        imprimir_curso(curso)
+    return encontrados
+
 
 def ver_curso_pre():
-    for curso in cursos:
-        if curso["prerrequisito"] != "Ninguno":
-            print("\nCursos con prerrequisitos")
-            print(f"Código: {curso['codigo']}")
-            print(f"Curso: {curso['nombre']}")
-            print(f"Créditos: {curso['creditos']}")           
-            print(f"Prerrequisito: {curso['prerrequisito']}")
-            print(f"Horario:         {curso['dia']} {curso['hora_inicio']:.2f} - {curso['hora_fin']:.2f}")
+    con_prerrequisito = [c for c in cursos if c["prerrequisito"] != "Ninguno"]
 
+    imprimir_titulo("CURSOS CON PRERREQUISITOS")
+    if not con_prerrequisito:
+        print("No hay cursos con prerrequisitos.")
+        return
 
-
-def seleccionar_curso(codigo, seleccionados):
-
-    for curso in cursos:
-
-        if curso["codigo"] == codigo:
-
-            if curso in seleccionados:
-                print("El curso ya está seleccionado")
-                return
-
-            seleccionados.append(curso)
-            print("Curso seleccionado correctamente")
-            return
-
-    print("El curso no existe")
-
-
+    for curso in con_prerrequisito:
+        print()
+        imprimir_curso(curso)
